@@ -36,7 +36,7 @@ public class LicenseController {
     @PostMapping
     public ResponseEntity<String> updateLicense(
         @PathVariable("organizationId") String organizationId,
-        @RequestHeader(value = "Accecpt-Language", required = false) Locale locale,
+        @RequestHeader(value = "Accept-Language", required = false) Locale locale,
         @RequestBody License request
     ) {
         return ResponseEntity.ok(service.createLicense(request, organizationId, locale));
@@ -45,7 +45,7 @@ public class LicenseController {
     @PutMapping
     public ResponseEntity<String> createLicense(
         @PathVariable("organizationId") String organizationId,
-        @RequestHeader(value = "Accecpt-Language", required = false) Locale locale,
+        @RequestHeader(value = "Accept-Language", required = false) Locale locale,
         @RequestBody License request
     ) {
         return ResponseEntity.ok(service.updateLicense(request, organizationId, locale));
@@ -55,7 +55,7 @@ public class LicenseController {
     public ResponseEntity<String> deleteLicense(
         @PathVariable("organizationId") String organizationId,
         @PathVariable("licenseId") String licenseId,
-        @RequestHeader(value = "Accecpt-Language", required = false) Locale locale
+        @RequestHeader(value = "Accept-Language", required = false) Locale locale
     ) {
         return ResponseEntity.ok(service.deleteLicense(licenseId, organizationId, locale));
     }
