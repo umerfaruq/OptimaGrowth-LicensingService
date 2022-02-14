@@ -1,7 +1,8 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id "com.diffplug.spotless" version "6.2.2"
+	id 'com.diffplug.spotless' version '6.2.2'
+	id 'com.palantir.docker' version '0.32.0'
 	id 'java'
 }
 
@@ -29,6 +30,12 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+docker {
+	name "hub.docker.com/umerfaruq/$rootProject.name"
+	tag 'buildDocker', project.version
+	files bootJar.archivePath
+}
+
 spotless {
 	java {
 		prettier(['prettier': '2.5.1', 'prettier-plugin-java': '1.6.1']).config(['parser': 'java', 'tabWidth': 4, printWidth: 100, useTabs: false])
@@ -36,5 +43,14 @@ spotless {
 	groovyGradle {
 		target '*.gradle' // default target of groovyGradle
 		greclipse()
+	}
+}
+
+task("testtask") {
+	doLast {
+		println("Running test task")
+		println(project.version)
+		println(rootProject.name)
+		println(bootJar.archivePath)
 	}
 }
