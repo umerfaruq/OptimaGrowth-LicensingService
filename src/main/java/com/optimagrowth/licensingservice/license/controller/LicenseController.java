@@ -1,5 +1,8 @@
 package com.optimagrowth.licensingservice.license.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import com.optimagrowth.licensingservice.license.model.License;
 import com.optimagrowth.licensingservice.license.service.LicenseService;
 import java.util.Locale;
@@ -30,6 +33,23 @@ public class LicenseController {
         @PathVariable("licenseId") String licenseId
     ) {
         var license = service.getLicense(organizationId, licenseId);
+
+        license.add(
+            linkTo(
+                methodOn(LicenseController.class).getLicense(organizationId, license.getLicenseId())
+            )
+                .withSelfRel(),
+            linkTo(methodOn(LicenseController.class).createLicense(organizationId, null, license))
+                .withRel("createLicense"),
+            linkTo(methodOn(LicenseController.class).updateLicense(organizationId, null, null))
+                .withRel("updateLicense"),
+            linkTo(
+                methodOn(LicenseController.class)
+                    .deleteLicense(organizationId, license.getLicenseId(), null)
+            )
+                .withRel("deleteLicense")
+        );
+
         return ResponseEntity.ok(license);
     }
 
