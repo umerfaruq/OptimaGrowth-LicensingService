@@ -31,9 +31,10 @@ tasks.named('test') {
 }
 
 docker {
-	name "hub.docker.com/umerfaruq/$rootProject.name"
-	tag 'buildDocker', project.version
-	files bootJar.archivePath
+	name "umerfaruq/$rootProject.name"
+	tag 'currentVersion', "$name:$project.version"
+	files bootJar.outputs
+	buildArgs([JAR_FILE: bootJar.outputs.files.singleFile.name])
 }
 
 spotless {
@@ -52,5 +53,7 @@ task("testtask") {
 		println(project.version)
 		println(rootProject.name)
 		println(bootJar.archivePath)
+		println(bootJar.getVersion())
+		println(bootJar.outputs.files.singleFile.name)
 	}
 }
