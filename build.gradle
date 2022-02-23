@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -53,20 +54,5 @@ docker {
 spotless {
 	java {
 		prettier(['prettier': '2.5.1', 'prettier-plugin-java': '1.6.1']).config(['parser': 'java', 'tabWidth': 4, printWidth: 100, useTabs: false])
-	}
-	groovyGradle {
-		target '*.gradle' // default target of groovyGradle
-		greclipse()
-	}
-}
-
-task("testtask") {
-	doLast {
-		println("Running test task")
-		println(project.version)
-		println(rootProject.name)
-		println(bootJar.archivePath)
-		println(bootJar.getVersion())
-		println(bootJar.outputs.files.singleFile.name)
 	}
 }
