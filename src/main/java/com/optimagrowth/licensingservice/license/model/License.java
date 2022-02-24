@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.hateoas.RepresentationModel;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 @Entity
 @Table(name = "licenses")
@@ -36,23 +39,6 @@ public class License extends RepresentationModel<License> {
 
     @Column(name = "comment")
     private String comment;
-
-    @Builder
-    public License(
-        String licenseId,
-        String description,
-        String organizationId,
-        String productName,
-        String licenseType,
-        String comment
-    ) {
-        this.licenseId = licenseId;
-        this.description = description;
-        this.organizationId = organizationId;
-        this.productName = productName;
-        this.licenseType = licenseType;
-        this.comment = comment;
-    }
 
     public License withComment(String comment) {
         this.setComment(comment);
